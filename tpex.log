@@ -1,0 +1,64 @@
+15:40:25 [DEBUG] Generating files for French (fr)
+15:40:25 [DEBUG] Copying all the sources to d:\work\github\tpex\example-projet-dist\fr
+15:40:25 [DEBUG] Reading translation file or creating a new one: d:\work\github\tpex\example-project\translations\fr.json
+15:40:25 [DEBUG] Generating files for English (United Kingdom) (en_GB)
+15:40:25 [DEBUG] Copying all the sources to d:\work\github\tpex\example-projet-dist\en_GB
+15:40:25 [DEBUG] Reading translation file or creating a new one: d:\work\github\tpex\example-project\translations\en_GB.json
+15:40:25 [DEBUG] Generating files for English (United States) (en_US)
+15:40:25 [DEBUG] Copying all the sources to d:\work\github\tpex\example-projet-dist\en_US
+15:40:25 [DEBUG] Reading translation file or creating a new one: d:\work\github\tpex\example-project\translations\en_US.json
+15:40:26 [DEBUG] Scanning files in example-project/
+15:40:26 [DEBUG] 
+ HTML files found: 1 
+	example-project\index.html
+ CSS files found: 6 
+	example-project\style\colors.css
+	example-project\style\helpers.css
+	example-project\style\index.css
+	example-project\style\main.css
+	example-project\style\prism.css
+	example-project\style\reset.css
+ JS files found: 1 
+	example-project\js\main.js
+
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\index.html
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\index.html
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\index.html
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\style\colors.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\style\colors.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\style\colors.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\style\helpers.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\style\helpers.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\style\helpers.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\style\index.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\style\index.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\style\index.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\style\prism.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\style\prism.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\style\prism.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\style\main.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\style\main.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\style\main.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\style\reset.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\style\reset.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\style\reset.css
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\fr\js\main.js
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_GB\js\main.js
+15:40:26 [DEBUG] Writing to d:\work\github\tpex\example-projet-dist\en_US\js\main.js
+15:40:26 [DEBUG] HTML parsing done
+15:40:26 [DEBUG] CSS parsing done
+15:40:26 [DEBUG] JS parsing done
+15:40:26 [DEBUG] All parsers done
+15:40:26 [INFO] Translated in 3 langs in 1238 ms
+15:40:26 [INFO] New texts to translate: 
+fr:
+	View on Github
+
+en_GB:
+	View on Github
+
+en_US:
+	View on Github
+
+15:40:26 [INFO] Obsolete texts to delete: none
+15:40:26 [DEBUG] Completing translation files with new labels

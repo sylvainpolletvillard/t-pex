@@ -1,0 +1,37 @@
+{
+  "name": "t-pex",
+  "version": "0.0.0",
+  "description": "because translating a website should be as easy as a corrector roller stroke",
+  "main": "src/client/main.js",
+  "engines": {
+    "node": ">=4.2.1"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^0.34.0",
+    "falafel": "^1.2.0",
+    "findit": "^2.0.0",
+    "fs-extra": "^0.24.0",
+    "htmlparser2": "^3.8.3",
+    "minimatch": "^3.0.0",
+    "postcss": "^5.0.8",
+    "promisify-node": "^0.2.1",
+    "recursive-readdir": "^1.2.1",
+    "tracer": "^0.8.0"
+  },
+  "scripts": {
+    "scan": "node --es_staging scripts/scan",
+    "translate": "node --es_staging scripts/translate",
+    "editor": "electron src/editor/main"
+  },
+  "keywords": [
+    "translation",
+    "localization",
+    "internationalisation",
+    "i18n",
+    "l10n",
+    "lang",
+    "language"
+  ],
+  "author": "Sylvain Pollet-Villard",
+  "license": "MIT"
+}

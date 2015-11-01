@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>t-pex editor</title>
+
+	<link href="lib/MetroUICSS/build/css/metro.css" rel="stylesheet">
+	<link href="lib/MetroUICSS/build/css/metro-icons.css" rel="stylesheet">
+	<link href="lib/MetroUICSS/build/css/metro-schemes.css" rel="stylesheet">
+	<script>window.jQuery = window.$ = require('./lib/jquery-2.1.4.js');</script>
+	<script src="lib/MetroUICSS/build/js/metro.js"></script>
+
+	<script src="lib/object-model.js"></script>
+	<script src="lib/riot+compiler.js"></script>
+
+	<link rel="stylesheet" href="style/main.css"/>
+</head>
+<body>
+
+<app></app>
+
+<script>
+	try {
+		var NODE_VERSION = process.version;
+		var ELECTRON_VERSION = process.versions['electron'];
+	} catch(e){}
+</script>
+
+<script src="tags/app.tag" type="riot/tag"></script>
+<script src="app.js"></script>
+</body>
+</html>
