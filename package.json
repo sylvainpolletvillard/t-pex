@@ -1,7 +1,7 @@
 {
   "name": "t-pex",
   "version": "0.0.0",
-  "description": "because translating a website should be as easy as a corrector roller stroke",
+  "description": "because translating a website should be as easy as using a corrector roller",
   "main": "src/client/main.js",
   "engines": {
     "node": ">=4.2.1"
