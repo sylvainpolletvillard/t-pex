@@ -2,7 +2,7 @@ const
 	falafel = require('falafel'),
 	promisify = require("promisify-node"),
 	fs = promisify("fs-extra"),
-	config = require("../../example-project/tpex-config"),
+	config = require("../../example-project/t-pex-config"),
 	log = require("../logger")
 
 module.exports = function parseJS(filepaths, p){

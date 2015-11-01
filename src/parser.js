@@ -3,7 +3,7 @@ const
 	readdir = promisify('recursive-readdir'),
 	match = require("minimatch"),
 
-	options = require("../example-project/tpex-config"),
+	options = require("../example-project/t-pex-config"),
 	log = require("./logger"),
 	parseHTML = require("./parsers/html"),
 	parseCSS = require("./parsers/css"),

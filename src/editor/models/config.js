@@ -27,7 +27,7 @@ Config.findAndLoadConfigFile = Model.Function(Project)
 	finder.on("file", filepath => {
 		var fileName = filepath.split(/[\\\/]/).pop();
 		console.log(fileName);
-		if(fileName === "tpex-config.js"){
+		if(fileName === "t-pex-config.js"){
 			finder.stop();
 			resolve(require(filepath));
 		}

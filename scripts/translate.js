@@ -1,6 +1,6 @@
 const
 	parser = require("../src/parser"),
-	config = require("../example-project/tpex-config.js"),
+	config = require("../example-project/t-pex-config.js"),
 	log = require("../src/logger"),
 	promisify = require("promisify-node"),
 	fs = promisify("fs-extra"),

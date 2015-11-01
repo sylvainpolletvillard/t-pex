@@ -4,7 +4,7 @@ const
 	fs = promisify("fs-extra"),
 	extend = Object.assign.bind(Object, {}),
 
-	config = require('../example-project/tpex-config')
+	config = require('../example-project/t-pex-config')
 
 const loggerConfig = {
 	format : [

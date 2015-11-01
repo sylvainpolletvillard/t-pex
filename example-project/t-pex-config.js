@@ -13,7 +13,7 @@ module.exports ={
 	js: ['**/js/*.js'], // JavaScript files to scan
 	ignore: [], // // List of files to ignore
 
-	logFile: "tpex.log", // filepath where to log ; can be null for standard console output only
+	logFile: "t-pex.log", // filepath where to log ; can be null for standard console output only
 	logLevel: "debug" // level of log (error, warning, info or debug)
 
 }

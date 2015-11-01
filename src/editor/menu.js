@@ -69,7 +69,7 @@ var template = [
 			},
 			{
 				label: 'Report a bug',
-				click: function() { require('shell').openExternal('http://github.com/sylvainpolletvillard/tpex/issues') }
+				click: function() { require('shell').openExternal('http://github.com/sylvainpolletvillard/t-pex/issues') }
 			},
 			{
 				type: 'separator'
