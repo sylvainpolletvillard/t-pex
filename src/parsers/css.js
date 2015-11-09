@@ -19,7 +19,7 @@ module.exports = function parseCSS(filepaths, p){
 
 			translatedCSS.walkDecls(decl => {
 				if (decl.prop.match(/^t-/)) {
-					if(l === 0) tStyles.push({ prop: decl.prop, value: decl.value, file })
+					if(l === 0) tStyles.push({ prop: decl.prop, text: decl.value, file })
 					if (translate) {
 						decl.parent.insertBefore(decl, decl.clone({
 							prop: decl.prop.slice(2),
@@ -37,7 +37,7 @@ module.exports = function parseCSS(filepaths, p){
 	}))).then(() => {
 		log.debug("CSS parsing done")
 		return { // deduplicated
-			styleProps: tStyles.filter((p,i) => tStyles.findIndex(q=>q.value === p.value && q.prop === p.prop) === i)
+			styleProps: tStyles.filter((p,i) => tStyles.findIndex(q=>q.text === p.text && q.prop === p.prop) === i)
 		}
 	}).catch(log.error)
 }

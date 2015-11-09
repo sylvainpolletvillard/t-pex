@@ -23,7 +23,7 @@ module.exports = function parseHTML(filepaths, p){
 					currentFile.buffer = ""
 				}
 				Object.keys(attrs).filter(attr => attr.startsWith("t-")).forEach(attr => {
-					currentFile.tAttributes.push({ attr, value: attrs[attr], file })
+					currentFile.tAttributes.push({ attr, text: attrs[attr], file })
 				})
 			},
 			ontext: (text) => {
@@ -42,8 +42,8 @@ module.exports = function parseHTML(filepaths, p){
 		parser.write(fileContent)
 		parser.end()
 
-		tAttributes.push(...currentFile.tAttributes)
-		tElements.push(...currentFile.tElements)
+		tAttributes.push.apply(tAttributes, currentFile.tAttributes)
+		tElements.push.apply(tElements, currentFile.tElements)
 
 		return Promise.all(config.langs.map(lang => {
 			var result = fileContent.toString()
@@ -72,7 +72,7 @@ module.exports = function parseHTML(filepaths, p){
 		log.debug("HTML parsing done")
 		return { // deduplicated
 			elements: tElements.filter((a,i) => tElements.findIndex(b => a.text === b.text) === i),
-			attributes: tAttributes.filter((a,i) => tAttributes.findIndex(b => a.attr === b.attr && a.value === b.value) === i)
+			attributes: tAttributes.filter((a,i) => tAttributes.findIndex(b => a.attr === b.attr && a.text === b.text) === i)
 		}
 	}).catch(log.error)
 

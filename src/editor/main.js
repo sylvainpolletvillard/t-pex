@@ -1,5 +1,8 @@
-var app = require('app');  // Module to control application life.
-var BrowserWindow = require('browser-window');  // Module to create native browser window.
+const
+		app = require('app'),  // Module to control application life.
+		BrowserWindow = require('browser-window'),  // Module to create native browser window.
+		ipc = require('ipc'),
+		Parser = require('../parser')
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -27,17 +30,15 @@ app.on('ready', function() {
 		"auto-hide-menu-bar": true
 	});
 
-
-	app.window = mainWindow;
-
 	require('./menu');
 	//mainWindow.setMenu(null);
 
 
 	// and load the index.html of the app.
 	mainWindow.loadUrl('file://' + __dirname + '/index.html');
-
 	mainWindow.openDevTools();
+
+	app.window = mainWindow.webContents;
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function() {
@@ -46,4 +47,20 @@ app.on('ready', function() {
 		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
+
+
 });
+
+ipc.on("scan", function(event, arg){
+	Parser().then( results => {
+
+		results.elements.forEach(l => l.type = "element" );
+		results.attributes.forEach(l => l.type = "attribute");
+		results.styleProps.forEach(l => l.type = "style property");
+		results.fnCalls.forEach(l => l.type = "function call");
+
+		event.sender.send('results', [].concat(results.elements, results.attributes, results.styleProps, results.fnCalls))
+
+	}).catch(errors => { throw errors })
+})
+

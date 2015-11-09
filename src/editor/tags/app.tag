@@ -5,9 +5,7 @@
 	<div class="page-content">
 		<side-menu>	</side-menu>
 
-		<main>
-			<home-page></home-page>
-		</main>
+		<main></main>
 	</div>
 
 	<style scoped>
@@ -32,9 +30,8 @@
 	</style>
 
 	<script>
-		riot.compile('tags/main-menu.tag', () => riot.mount('main-menu', app))
-		riot.compile('tags/side-menu.tag', () => riot.mount('side-menu', app))
-		riot.compile('tags/home-page.tag', () => riot.mount('home-page', app))
+		riot.compile('tags/main-menu.tag', () => riot.mount('main-menu'))
+		riot.compile('tags/side-menu.tag', () => riot.mount('side-menu'))
 	</script>
 
 </app>

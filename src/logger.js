@@ -35,7 +35,7 @@ var logger = tracer.console(extend(loggerConfig, {
 				mode: 666
 			}).write(data.output+"\n");
 		}
-		consoleLogger[data.title.toLowerCase()](...data.args)
+		consoleLogger[data.title.toLowerCase()].apply(null, data.args)
 	}
 }));
 

@@ -12443,8 +12443,8 @@ input[type="submit"].link:active {
   text-decoration: none;
   background: #59cde2;
 }
-.sidebar2 li:hover > a,
-.sidebar2 li:hover .icon {
+.sidebar2 > li:hover > a,
+.sidebar2 > li:hover > a > .icon {
   color: #ffffff;
 }
 .sidebar2 li a[data-hotkey] {

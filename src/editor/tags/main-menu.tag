@@ -9,15 +9,8 @@
 				<ul class="d-menu no-icons" data-role="dropdown">
 					<li><a href="">New project</a></li>
 					<li class="divider"></li>
-					<li>
-						<a href="" class="dropdown-toggle">Reopen</a>
-						<ul class="d-menu no-icons" data-role="dropdown">
-							<li each={ projects }>
-								<a href="#projects/{ name }" title="{rootPath}">{name}</a>
-							</li>
-							<li class="divider"></li>
-							<li><a href="">Clear list</a></li>
-						</ul>
+					<li each={ projects }>
+						<a href="#projects/{ name }" title="{rootPath}">{name}</a>
 					</li>
 				</ul>
 			</li>
