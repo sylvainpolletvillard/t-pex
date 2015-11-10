@@ -1,5 +1,5 @@
 const Label = Model.Object({
-	type: ["function call", "element", "attribute", "style property"],
+	type: ["function", "element", "attribute", "style"],
 	text: String,
 	file: String
 })

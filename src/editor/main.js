@@ -56,8 +56,8 @@ ipc.on("scan", function(event, arg){
 
 		results.elements.forEach(l => l.type = "element" );
 		results.attributes.forEach(l => l.type = "attribute");
-		results.styleProps.forEach(l => l.type = "style property");
-		results.fnCalls.forEach(l => l.type = "function call");
+		results.styleProps.forEach(l => l.type = "style");
+		results.fnCalls.forEach(l => l.type = "function");
 
 		event.sender.send('results', [].concat(results.elements, results.attributes, results.styleProps, results.fnCalls))
 

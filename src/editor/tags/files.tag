@@ -9,17 +9,17 @@
 			<div class="content">
 				<table class="table bordered">
 					<thead>
-					<th style="width: 3rem">Line</th>
-					<th style="width: 6rem">Type</th>
-					<th colspan="1">Label</th>
-					<th colspan="1">Translation</th>
+					<th style="width: 4rem">Line</th>
+					<th style="width: 8rem">Type</th>
+					<th>Label</th>
+					<th>Translation</th>
 					</thead>
 					<tbody>
 					<tr each="{ labels }">
 						<td>{line}</td>
 						<td>{type.capitalize()}
 							<small if={ type === "attribute" }>{attr}</small>
-							<small if={ type === "styleProp" }>{prop}</small>
+							<small if={ type === "style" }>{prop}</small>
 						</td>
 						<td>{text}</td>
 						<td contenteditable>{text}</td>
@@ -72,10 +72,10 @@
 					this.results = this.results.filter(l => l.type === "element" || l.type === "attribute");
 					break;
 				case "CSS":
-					this.results = this.results.filter(l => l.type === "style property");
+					this.results = this.results.filter(l => l.type === "style");
 					break;
 				case "JS":
-					this.results = this.results.filter(l => l.type === "function call");
+					this.results = this.results.filter(l => l.type === "function");
 					break;
 			}
 

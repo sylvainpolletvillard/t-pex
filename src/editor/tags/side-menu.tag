@@ -113,8 +113,8 @@
 
 			this.tElements  = this.results.filter(l => l.type === "element")
 			this.tAttributes  = this.results.filter(l => l.type === "attribute")
-			this.tStyleProps  = this.results.filter(l => l.type === "style property")
-			this.tFnCalls  = this.results.filter(l => l.type === "function call")
+			this.tStyleProps  = this.results.filter(l => l.type === "style")
+			this.tFnCalls  = this.results.filter(l => l.type === "function")
 
 			this.resultsGroupedByFile = this.results.groupBy("file");
 			this.HTMLResultsGroupedByFile = [].concat(this.tElements, this.tAttributes).groupBy("file");
