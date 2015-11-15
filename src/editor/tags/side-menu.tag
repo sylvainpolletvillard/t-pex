@@ -8,19 +8,12 @@
 		</a>
 		</li>
 		<li>
-			<a class="dropdown-toggle" href="#files">
+			<a class="dropdown-toggle" href="#files" id="menuLinkFiles">
 				<span class="mif-tree icon"></span>
 				<span class="title">Files</span>
 				<span class="counter">({Object.size(resultsGroupedByFile)})</span>
 			</a>
 			<ul class="d-menu" data-role="dropdown">
-				<li>
-					<a href="#files">
-						<span class="mif-files-empty icon"></span>
-						<span class="title">All</span>
-						<span class="counter">({Object.size(resultsGroupedByFile)})</span>
-					</a>
-				</li>
 				<li>
 					<a href="#files/html">
 						<span class="mif-file-text icon"></span>
@@ -45,32 +38,32 @@
 			</ul>
 		</li>
 		<li>
-			<a href="#labels" class="dropdown-toggle">
+			<a href="#labels" class="dropdown-toggle" id="menuLinkLabels">
 				<span class="mif-list icon"></span>
 				<span class="title">Labels</span>
 				<span class="counter">({results.length})</span>
 			</a>
 			<ul class="d-menu no-icons" data-role="dropdown">
 				<li>
-					<a href="#labels/elements">
+					<a href="#labels/element">
 						<span class="title">HTML &lt;t&gt; elements</span>
 						<span class="counter">({tElements.length})</span>
 					</a>
 				</li>
 				<li>
-					<a href="#labels/attributes">
+					<a href="#labels/attribute">
 						<span class="title">HTML t-attributes</span>
 						<span class="counter">({tAttributes.length})</span>
 					</a>
 				</li>
 				<li>
-					<a href="#labels/styleprops">
+					<a href="#labels/style">
 						<span class="title">CSS t-properties</span>
 						<span class="counter">({tStyleProps.length})</span>
 					</a>
 				</li>
 				<li>
-					<a href="#labels/fncalls">
+					<a href="#labels/function">
 						<span class="title">JS t() calls</span>
 						<span class="counter">({tFnCalls.length})</span>
 					</a>
@@ -87,24 +80,29 @@
 		</a></li>
 	</ul>
 
-
-	<style scoped>
-		:scope {
-
-		}
-
-		:scope, nav, .vertical.menu {
+	<style scoped type="text/less">/*@formatter:off*/
+		:scope,
+		:scope nav,
+		:scope .vertical.menu {
 			height: 100%;
 		}
 
-		:scope .sidebar2 li > ul > li {
-			padding-left: 1rem;
-		}
 
-		:scope ul.no-icons > li {
-			padding-left: 0;
-		}
-	</style>
+		:scope {
+			.sidebar2 li > ul > li {
+				padding-left: 1rem;
+			}
+
+	        .sidebar2 li.active-link {
+		        background-color: #1ba1e2;
+
+		        & > a {
+			        background: transparent;
+			        color: white;
+		        }
+	        }
+	    }
+	/*@formatter:on*/</style>
 
 	<script>
 
@@ -121,6 +119,23 @@
 			this.CSSResultsGroupedByFile = this.tStyleProps.groupBy("file");
 			this.JSResultsGroupedByFile = this.tFnCalls.groupBy("file");
 		});
+
+		this.on('mount', function(){
+			$('a.dropdown-toggle', this.root).on("click", function(e){
+				$('a.dropdown-toggle + ul', this.root).removeClass('keep-open');
+
+				var link = this.getAttribute('href')
+				var isActive = $(this).hasClass('active-toggle');
+
+				$(this).next('ul').toggleClass('keep-open', !isActive);
+				riot.route(link.slice(1));
+			});
+
+			$('a[href]', this.root).on("click", function(e){
+				$('.active-link', this.root).removeClass('active-link');
+				$(this).parent().addClass('active-link');
+			})
+		})
 
 		this.projects = app.projects;
 	</script>

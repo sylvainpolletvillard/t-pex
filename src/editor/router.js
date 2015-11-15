@@ -1,5 +1,6 @@
 const routes = {
-	files: "files"
+	files: "files",
+	labels: "labels"
 }
 
 riot.route(function(page, id, action) {

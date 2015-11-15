@@ -33,5 +33,9 @@
     "language"
   ],
   "author": "Sylvain Pollet-Villard",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "less": "^2.5.3",
+    "less-plugin-autoprefix": "^1.5.1"
+  }
 }

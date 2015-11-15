@@ -22,7 +22,7 @@
 							<small if={ type === "style" }>{prop}</small>
 						</td>
 						<td>{text}</td>
-						<td contenteditable>{text}</td>
+						<td contenteditable>{translate(text)}</td>
 					</tr>
 					</tbody>
 				</table>
@@ -31,38 +31,48 @@
 
 	</div>
 
-	<style scoped>
-		:scope h1 {
-			text-indent: 1rem;
-		}
+	<style scoped type="text/less">/*@formatter:off*/
+		:scope {
+			h1 {
+				text-indent: 1rem;
+			}
 
-		:scope .accordion .heading {
-			font-size: 1rem;
-			text-transform: none;
-		}
+			.accordion {
+				.heading {
+					font-size: 1rem;
+					text-transform: none;
 
-		:scope .accordion .heading::before {
-			top: 10px;
-		}
+					&::before {
+						top: 10px;
+					}
+				}
 
-		:scope .accordion .content {
-			padding: 0;
-		}
+				.content {
+					padding: 0;
 
-		:scope .content .table {
-			table-layout: fixed;
-			margin: 0;
-			border-bottom: 1px solid #999999;
-		}
+					.table {
+						table-layout: fixed;
+						margin: 0;
+						border-bottom: 1px solid #999999;
+					}
 
-		:scope .content .table td small {
-			display: block;
+					td small {
+						display: block;
+					}
+				}
+			}
 		}
-
-	</style>
+	/*@formatter:on*/</style>
 
 	<script>
 		this.filetype = opts.id && opts.id.toUpperCase();
+
+		translate(label){
+			console.log("translate", app.currentLang.code);
+			return app.currentLang.translations[label] || ""
+		}
+
+		this.on('all', function(e){ console.log("files.tag "+e) })
 
 		this.on('update', function() {
 			this.results = app.labels;
@@ -82,6 +92,11 @@
 			this.files = this.results.groupBy("file");
 
 		});
+
+		/* //TODO
+		 I got a strange issue. I use riot.update() to update a tag, it works on first call but not on the next ones. For some reason the tag disappears from riot tags cache. I have a similar tag at the same level that does not have this issue and is updating correctly.
+		 I tracked the bug, it is related to having a loop inside another loop in my template ; it may be a bug in Riot.
+		 */
 
 	</script>
 </files>

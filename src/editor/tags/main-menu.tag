@@ -9,7 +9,7 @@
 				<ul class="d-menu no-icons" data-role="dropdown">
 					<li><a href="">New project</a></li>
 					<li class="divider"></li>
-					<li each={ projects }>
+					<li each={ app.projects }>
 						<a href="#projects/{ name }" title="{rootPath}">{name}</a>
 					</li>
 				</ul>
@@ -29,30 +29,24 @@
 
 		<ul class="app-bar-menu place-right">
 			<li class="lang-selector">
-				<a href="" class="dropdown-toggle"><span class="mif-earth2"></span> Current Language</a>
+				<a href="" class="dropdown-toggle"><span class="mif-earth2"></span> Current Language: { app.currentLang.name } ({app.currentLang.code})</a>
 				<ul class="d-menu no-icons" data-role="dropdown" style="right: 0; left: auto;">
-					<li each={ langs }>
-						<a href="">{name} ({code})</a>
+					<li each={ app.langs }>
+						<a class="{ 'active-lang': code === app.currentLang.code }" onclick={ parent.selectLang }>{name} ({code})</a>
 					</li>
 				</ul>
 			</li>
 		</ul>
 	</div>
 
+	<style scoped type="text/less">/*@formatter:off*/
 
-
-	<style scoped>
-		:scope {
-
-		}
-
-	</style>
+	/*@formatter:on*/</style>
 
 	<script>
-
-		this.projects = app.projects;
-
-		this.langs = app.langs
+		selectLang(e){
+			app.selectLang(e.item.code);
+		}
 
 	</script>
 </main-menu>

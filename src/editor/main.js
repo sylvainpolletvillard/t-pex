@@ -1,8 +1,11 @@
 const
-		app = require('app'),  // Module to control application life.
-		BrowserWindow = require('browser-window'),  // Module to create native browser window.
-		ipc = require('ipc'),
-		Parser = require('../parser')
+	promisify = require("promisify-node"),
+	fs = promisify("fs-extra"),
+	app = require('app'),  // Module to control application life.
+	BrowserWindow = require('browser-window'),  // Module to create native browser window.
+	ipc = require('ipc'),
+	log = require("../logger"),
+	Parser = require('../parser')
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -51,7 +54,7 @@ app.on('ready', function() {
 
 });
 
-ipc.on("scan", function(event, arg){
+ipc.on("scan", function(event){
 	Parser().then( results => {
 
 		results.elements.forEach(l => l.type = "element" );
@@ -64,3 +67,30 @@ ipc.on("scan", function(event, arg){
 	}).catch(errors => { throw errors })
 })
 
+ipc.on("loadTranslations", function(event, config){
+
+	const
+		baseDir = __dirname + "/../../",
+		translations = {};
+
+	Promise.all(config.langs.map(lang => {
+		log.debug("Generating files for %s (%s)", lang.name || "unknown lang", lang)
+
+		return (path => {
+			log.debug("Reading translation file or creating a new one: " + path)
+			return fs.ensureFile(path)
+		         .then(() => fs.readJSON(path))
+		         .then(json => {
+			         translations[lang] = json
+			         return true;
+		         })
+		         .catch(error =>{ // empty or invalid JSON
+			         log.error(error);
+			         translations[lang] = {}
+		         })
+			})(fs.realpathSync(baseDir + config.paths.translations.replace("{lang}", lang)))
+	})).then(() => {
+		event.sender.send('translations', translations);
+	})
+
+})

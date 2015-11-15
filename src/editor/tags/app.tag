@@ -8,11 +8,11 @@
 		<main></main>
 	</div>
 
-	<style scoped>
+	<style scoped type="text/less">/*@formatter:off*/
 		:scope {
 			height: 100%;
 		}
-		
+
 		.page-content {
 			display: flex;
 			padding-top: 3.125rem;
@@ -27,7 +27,7 @@
 		main {
 			flex: 1;
 		}
-	</style>
+	/*@formatter:on*/</style>
 
 	<script>
 		riot.compile('tags/main-menu.tag', () => riot.mount('main-menu'))
