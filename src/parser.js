@@ -14,10 +14,10 @@ module.exports = function(params){
 	log.debug("Scanning files in " + options.paths.src);
 
 	return readdir(options.paths.src).then(filepaths => {
-		filepaths = filepaths.filter(filepath => !options.ignore.some(pattern => match(filepath, pattern)))
-		var htmls = filepaths.filter(filepath => options.html.some(pattern => match(filepath, pattern))),
-			styles = filepaths.filter(filepath => options.css.some(pattern => match(filepath, pattern))),
-			scripts = filepaths.filter(filepath => options.js.some(pattern => match(filepath, pattern)))
+		filepaths = filepaths.filter(filepath => !options.files.ignore.some(pattern => match(filepath, pattern)))
+		var htmls = filepaths.filter(filepath => options.files.html.some(pattern => match(filepath, pattern))),
+			styles = filepaths.filter(filepath => options.files.css.some(pattern => match(filepath, pattern))),
+			scripts = filepaths.filter(filepath => options.files.js.some(pattern => match(filepath, pattern)))
 
 		log.debug('\n',
 			"HTML files found: " + htmls.length, log.array(htmls),

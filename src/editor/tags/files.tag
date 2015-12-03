@@ -9,14 +9,12 @@
 			<div class="content">
 				<table class="table bordered">
 					<thead>
-					<th style="width: 4rem">Line</th>
 					<th style="width: 8rem">Type</th>
 					<th>Label</th>
 					<th>Translation</th>
 					</thead>
 					<tbody>
 					<tr each="{ labels }">
-						<td>{line}</td>
 						<td>{type.capitalize()}
 							<small if={ type === "attribute" }>{attr}</small>
 							<small if={ type === "style" }>{prop}</small>
@@ -71,8 +69,6 @@
 			console.log("translate", app.currentLang.code);
 			return app.currentLang.translations[label] || ""
 		}
-
-		this.on('all', function(e){ console.log("files.tag "+e) })
 
 		this.on('update', function() {
 			this.results = app.labels;

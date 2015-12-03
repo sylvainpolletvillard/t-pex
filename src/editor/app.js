@@ -38,6 +38,7 @@ Config.findAndLoadConfigFile(lastProject).then(function(config){
 		config: config,
 		labels: [],
 		langs: config.langs.map(Lang.getByCode),
+		allLangs: Lang.all,
 		currentLang: Lang.getByCode(config.langs[0])
 	})
 
@@ -54,7 +55,7 @@ Config.findAndLoadConfigFile(lastProject).then(function(config){
 		riot.update();
 	})
 
-	ipc.send('loadTranslations', config);
+	ipc.send('loadTranslations', require(config.filepath));
 	ipc.send("scan");
 
 	riot.mount('*', app);

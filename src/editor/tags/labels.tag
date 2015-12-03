@@ -51,8 +51,6 @@
 			return app.currentLang.translations[label] || ""
 		}
 
-		this.on('all', function(e){ console.log("labels.tag "+e) })
-
 		this.on("unmount", function(){
 			$(this.dataTable).DataTable().destroy();
 		})

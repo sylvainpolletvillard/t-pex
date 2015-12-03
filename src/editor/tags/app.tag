@@ -26,6 +26,7 @@
 
 		main {
 			flex: 1;
+			overflow: auto;
 		}
 	/*@formatter:on*/</style>
 

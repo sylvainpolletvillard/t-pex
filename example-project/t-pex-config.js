@@ -8,12 +8,16 @@ module.exports ={
 		translations: "example-project/translations/{lang}.json" // path where to store translations mapping
 	},
 
-	html: ['**/*.html'], // HTML files to scan
-	css: ['**/*.css'], // CSS files to scan
-	js: ['**/js/*.js'], // JavaScript files to scan
-	ignore: [], // // List of files to ignore
+	files: {
+		html: ['**/*.html'], // HTML files to scan
+		css: ['**/*.css'], // CSS files to scan
+		js: ['**/js/*.js'], // JavaScript files to scan
+		ignore: [] // // List of files to ignore
+	},
 
-	logFile: "t-pex.log", // filepath where to log ; can be null for standard console output only
-	logLevel: "debug" // level of log (error, warning, info or debug)
+	log: {
+		level: "debug", // level of log (error, warning, info or debug),
+		file: "t-pex.log" // filepath where to log ; can be null for standard console output only
+	}
 
 }

@@ -20,4 +20,6 @@ Lang.getByCode = code => {
 	return _langs[code]
 }
 
+Lang.all = Object.keys(languageCodes).map(Lang.getByCode);
+
 module.exports = Lang;

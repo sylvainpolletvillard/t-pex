@@ -1,9 +1,13 @@
+// ObjectModel v1.1.3 - http://objectmodel.js.org
 ;(function(global){
 function isFunction(o){
 	return typeof o === "function";
 }
 function isObject(o){
     return typeof o === "object";
+}
+function isPlainObject(o){
+	return o && isObject(o) && Object.getPrototypeOf(o) === Object.prototype;
 }
 
 var isArray = function(a){	return a instanceof Array; };
@@ -36,23 +40,17 @@ function cloneArray(arr){
 	return Array.prototype.slice.call(arr);
 }
 
-function merge(base, ext, replace){
-	if(ext instanceof Object){
-		for(var p in ext){
-			if(ext.hasOwnProperty(p)){
-				if(base.hasOwnProperty(p)){
-					if(base[p] instanceof Object){
-						merge(base[p], ext[p], replace);
-					} else if(replace){
-						base[p] = ext[p];
-					}
-				} else {
-					base[p] = ext[p];
-				}
-			}
+function merge(target, src, deep) {
+	Object.keys(src || {}).forEach(function(key){
+		if(deep && isPlainObject(src[key])){
+			var o = {};
+			merge(o, target[key], deep);
+			merge(o, src[key], deep);
+			target[key] = o;
+		} else {
+			target[key] = src[key]
 		}
-	}
-	return base
+	});
 }
 
 var canSetProto = !!Object.setPrototypeOf || {__proto__:[]} instanceof Array;
@@ -78,7 +76,7 @@ function setProto(constructor, proto, protoConstructor){
 
 function setConstructor(model, constructor){
 	Object.setPrototypeOf(model, constructor.prototype);
-	Object.defineProperty(model, "constructor", {enumerable: false, writable: true, value: constructor});
+	Object.defineProperty(model, "constructor", { enumerable: false, writable: true, value: constructor });
 }
 
 var isProxySupported = (typeof Proxy === "function");
@@ -99,7 +97,7 @@ function Model(def){
 setProto(Model, Function.prototype);
 
 Model.prototype.toString = function(stack){
-	return toString(this.definition, stack);
+	return parseDefinition(this.definition).map(function(d){ return toString(d, stack); }).join(" or ");
 };
 
 Model.prototype.validate = function(obj, stack){
@@ -113,9 +111,38 @@ Model.prototype.test = function(obj, stack){
 };
 
 Model.prototype.extend = function(){
-	var submodel = new this.constructor(mergeDefinitions(this.definition, arguments));
+	var def, proto,
+		assertions = cloneArray(this.assertions),
+		args = cloneArray(arguments);
+
+	if(Model.instanceOf(this, Model.Object)){
+		def = {};
+		proto = {};
+		merge(def, this.definition);
+		merge(proto, this.prototype);
+		args.forEach(function(arg){
+			if(Model.instanceOf(arg, Model)){
+				merge(def, arg.definition, true);
+				merge(proto, arg.prototype, true);
+			} else {
+				merge(def, arg, true);
+			}
+		})
+	} else {
+		def = args.reduce(function(def, ext){ return def.concat(parseDefinition(ext)); }, parseDefinition(this.definition))
+			      .filter(function(value, index, self) { return self.indexOf(value) === index; }); // remove duplicates
+	}
+
+	args.forEach(function(arg){
+		if(Model.instanceOf(arg, Model)){
+			assertions = assertions.concat(arg.assertions);
+		}
+	});
+
+	var submodel = new this.constructor(def);
 	setProto(submodel, this.prototype);
-	submodel.assertions = cloneArray(this.assertions);
+	merge(submodel.prototype, proto);
+	submodel.assertions = assertions;
 	return submodel;
 };
 
@@ -138,20 +165,6 @@ Model.conventionForPrivate = function(key){ return key[0] === "_" };
 
 function isLeaf(def){
 	return bettertypeof(def) != "Object";
-}
-
-function mergeDefinitions(base, exts){
-	if(!exts.length) return base;
-	if(isLeaf(base)){
-		return cloneArray(exts)
-			.reduce(function(def, ext){ return def.concat(parseDefinition(ext)); }, parseDefinition(base))
-			.filter(function(value, index, self) { // remove duplicates
-				return self.indexOf(value) === index;
-			});
-	} else {
-		return cloneArray(exts)
-			.reduce(function(def, ext){ return merge(ext || {}, def); }, base);
-	}
 }
 
 function parseDefinition(def){
@@ -233,6 +246,10 @@ setProto(Model.Object, Model.prototype, Model);
 Model.Object.prototype.defaults = function(p){
 	merge(this.prototype, p);
 	return this;
+};
+
+Model.Object.prototype.toString = function(stack){
+	return toString(this.definition, stack);
 };
 
 function getProxy(model, obj, defNode, path) {
@@ -323,9 +340,7 @@ setProto(Model.Array, Model.prototype, Model);
 
 Model.Array.prototype.validate = function(arr){
 	if(!isArray(arr)){
-		throw new TypeError("expecting an array"
-			+ (this.definition? " of " + this.definition.map(function(d){ return toString(d); }).join(" or ") : "")
-			+", got: " + toString(arr));
+		throw new TypeError("expecting "+this.toString()+", got: " + toString(arr));
 	}
 	for(var i=0, l=arr.length; i<l; i++){
 		checkDefinition(arr[i], this.definition, 'Array['+i+']', []);
@@ -334,7 +349,7 @@ Model.Array.prototype.validate = function(arr){
 };
 
 Model.Array.prototype.toString = function(stack){
-	return 'Model.Array(' + toString(this.definition, stack) + ')';
+	return 'Array of ' + toString(this.definition, stack);
 };
 
 function proxifyArrayKey(proxy, array, key, model){
@@ -380,7 +395,9 @@ Model.Function = function FunctionModel(){
 
 		var def = model.definition;
 		var proxyFn = function () {
-			var args = merge(cloneArray(arguments), def.defaults);
+			var args = [];
+			merge(args, def.defaults);
+			merge(args, cloneArray(arguments));
 			if (args.length !== def.arguments.length) {
 				throw new TypeError("expecting " + toString(fn) + " to be called with " + def.arguments.length + " arguments, got " + args.length);
 			}

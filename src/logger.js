@@ -14,15 +14,15 @@ const loggerConfig = {
 		}
 	],
 	dateformat : "HH:MM:ss",
-	level: config.logLevel,
+	level: config.log.level,
 	preprocess :  function(data){
 		data.title = data.title.toUpperCase();
 	}
 }
 
 
-if(config.logFile){
-	fs.writeFileSync(config.logFile, ''); // clear previous logs
+if(config.log.file){
+	fs.writeFileSync(config.log.file, ''); // clear previous logs
 }
 
 var consoleLogger = tracer.colorConsole(loggerConfig)

@@ -556,6 +556,7 @@ $.widget.extend = function (target) {
 
 $.widget.bridge = function (name, object) {
     var fullName = object.prototype.widgetFullName || name;
+    $.fn['original_'+name] = $.fn[name];
     $.fn[name] = function (options) {
         var isMethodCall = typeof options === "string",
             args = widget_slice.call(arguments, 1),

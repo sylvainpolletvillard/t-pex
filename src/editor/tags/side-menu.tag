@@ -74,7 +74,7 @@
 			<span class="mif-search icon"></span>
 			<span class="title">Search a label</span>
 		</a></li>
-		<li><a href="#">
+		<li><a href="#config">
 			<span class="mif-cogs icon"></span>
 			<span class="title">Configuration</span>
 		</a></li>
